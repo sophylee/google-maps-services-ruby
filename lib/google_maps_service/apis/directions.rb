@@ -87,6 +87,7 @@ module GoogleMapsService::Apis
       params[:region] = region if region
       params[:departure_time] = GoogleMapsService::Convert.time(departure_time) if departure_time
       params[:arrival_time] = GoogleMapsService::Convert.time(arrival_time) if arrival_time
+      params[:traffic_model] = 'best_guess'
 
       if departure_time and arrival_time
         raise ArgumentError, 'Should not specify both departure_time and arrival_time.'
@@ -95,7 +96,7 @@ module GoogleMapsService::Apis
       params[:transit_mode] = GoogleMapsService::Convert.join_list("|", transit_mode) if transit_mode
       params[:transit_routing_preference] = transit_routing_preference if transit_routing_preference
 
-      return get('/maps/api/directions/json', params)[:routes]
+      return get('/maps/api/directions/json', params)#[:routes]
     end
   end
 end
