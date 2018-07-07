@@ -241,6 +241,7 @@ module GoogleMapsService
     #
     # @return [Hash] Response body as hash. The hash key will be symbolized.
     def decode_response_body(response)
+      puts response.body
       check_response_status_code(response)
       body = MultiJson.load(response.body, :symbolize_keys => true)
       check_body_error(response, body)
