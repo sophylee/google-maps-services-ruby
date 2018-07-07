@@ -170,7 +170,7 @@ module GoogleMapsService
     # @return [Object] Decoded response body.
     def get(path, params, base_url: DEFAULT_BASE_URL, accepts_client_id: true, custom_response_decoder: nil)
       url = base_url + generate_auth_url(path, params, accepts_client_id)
-
+      puts url
       Retriable.retriable timeout: @retry_timeout, on: RETRIABLE_ERRORS do |try|
         begin
           request_query_ticket
