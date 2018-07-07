@@ -87,7 +87,6 @@ module GoogleMapsService::Apis
       params[:region] = region if region
       params[:departure_time] = GoogleMapsService::Convert.time(departure_time) if departure_time
       params[:arrival_time] = GoogleMapsService::Convert.time(arrival_time) if arrival_time
-      params[:traffic_model] = 'best_guess'
 
       if departure_time and arrival_time
         raise ArgumentError, 'Should not specify both departure_time and arrival_time.'
