@@ -60,7 +60,7 @@ module GoogleMapsService::Apis
     #
     # @return [Array] Array of routes.
     def directions(origin, destination,
-        mode: nil, waypoints: nil, alternatives: false, avoid: nil,
+        traffic_model: nil, mode: nil, waypoints: nil, alternatives: false, avoid: nil,
         language: nil, units: nil, region: nil, departure_time: nil,
         arrival_time: nil, optimize_waypoints: false, transit_mode: nil,
         transit_routing_preference: nil)
@@ -71,6 +71,12 @@ module GoogleMapsService::Apis
       }
 
       params[:mode] = GoogleMapsService::Validator.travel_mode(mode) if mode
+      
+      if params[:mode] == 'driving'
+        # departure time must be specified if traffic model is provided
+        departure_time ||= arrival_time - 30.minutes
+        params[:traffic_model] ||= 'best_guess'
+      end
 
       if waypoints = waypoints
         waypoints = GoogleMapsService::Convert.as_list(waypoints)
