@@ -102,7 +102,7 @@ module GoogleMapsService::Apis
       params[:transit_mode] = GoogleMapsService::Convert.join_list("|", transit_mode) if transit_mode
       params[:transit_routing_preference] = transit_routing_preference if transit_routing_preference
 
-      return get('/maps/api/directions/json', params)#[:routes]
+      return get('/maps/api/directions/json', params)[:routes]
     end
   end
 end
