@@ -72,10 +72,11 @@ module GoogleMapsService::Apis
 
       params[:mode] = GoogleMapsService::Validator.travel_mode(mode) if mode
       
-      if params[:mode] == 'driving'
+      if params[:mode] == 'driving' && traffic_model
         # departure time must be specified if traffic model is provided
         departure_time ||= arrival_time - 30.minutes
-        params[:traffic_model] ||= 'best_guess'
+        params[:traffic_model] = traffic_model
+        arrival_time = nil
       end
 
       if waypoints = waypoints
